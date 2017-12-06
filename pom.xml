@@ -1,18 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.remondis</groupId>
+		<groupId>com.remondis.super</groupId>
 		<artifactId>super-pom</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.remondis</groupId>
 	<artifactId>maven-project-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>Maven Project Template</name>
-	<packaging>pom</packaging>
-	<modules>
-		<module>extensible-rmi-api</module>
-	</modules>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<configLocation>shared/config/checkstyle.xml</configLocation>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<dependencies>
 		<dependency>
@@ -37,6 +46,4 @@
 			<artifactId>powermock-api-mockito</artifactId>
 		</dependency>
 	</dependencies>
-
-	<groupId>com.remondis</groupId>
 </project>
