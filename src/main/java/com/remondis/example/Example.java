@@ -2,11 +2,15 @@ package com.remondis.example;
 
 public class Example {
 
-  public Example() {
-  }
+	public Example() {
+	}
 
-  public boolean isTrue() {
-    return true;
-  }
+	public String linetolong() {
+		return "LoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsum";
+	}
+
+	public boolean isTrue() {
+		return true;
+	}
 
 }

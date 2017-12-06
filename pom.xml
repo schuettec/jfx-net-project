@@ -11,18 +11,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Maven Project Template</name>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<configuration>
-					<configLocation>shared/config/checkstyle.xml</configLocation>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>

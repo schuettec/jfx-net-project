@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class ExampleTest {
 
-  @Test
-  public void test() {
-    assertTrue(new Example().isTrue());
-  }
+	@Test
+	public void test() {
+		assertTrue(new Example().isTrue());
+	}
 
 }
