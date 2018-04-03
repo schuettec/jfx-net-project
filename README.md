@@ -22,3 +22,9 @@ Use this template by replacing the parts to fit the needs of your project:
     - Developers
     - Package in `project.distributionManagement.repository.url`
     - Dependencies
+
+## Build
+
+The REMONDIS open source projects are build using Travis CI and the resulting artifacts are published to JFrog Bintray. The build must be accepted by an administrator allowed to activate builds for REMONDIS projects. To publish artifacts to JFrog Bintray a package must be created for each project.
+
+To get further help with this, contact one of the developers listed in the POM.
