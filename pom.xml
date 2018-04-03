@@ -206,7 +206,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<dependencies>
+	<dependencies> 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
