@@ -6,7 +6,7 @@
 
 ## Overview
 
-This is the Maven Project Template providing the most common configuration for open source projects building in Travis CI and publishing to JFrog Bintray.
+This is the Maven Project Template providing the most common configuration for open source projects building in Travis CI and publishing to JFrog Bintray. This temlate is ready for use by single module projects.
 
 ## Using this template
 
