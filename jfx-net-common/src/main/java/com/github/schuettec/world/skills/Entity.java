@@ -14,7 +14,7 @@ public interface Entity {
 	 * Returns the position of this entity.
 	 * <p>
 	 * Most of the entities will return their center points to make positioning
-	 * easy. If your entity does not have an unambiguous enter point return the
+	 * easy. If your entity does not have an unambiguous center point return the
 	 * upper left point of the hull rectangle to make positioning intuitive.
 	 * </p>
 	 * 

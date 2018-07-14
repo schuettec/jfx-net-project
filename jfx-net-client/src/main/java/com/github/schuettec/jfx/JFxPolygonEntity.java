@@ -1,4 +1,4 @@
-package com.github.schuettec.integration;
+package com.github.schuettec.jfx;
 
 import java.util.List;
 
@@ -10,15 +10,15 @@ import com.github.schuettec.world.EntityPoint;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
-public class PolygonEntity extends Polygon implements JFxEntity {
+public class JFxPolygonEntity extends Polygon implements JFxEntity {
 
 	protected AbstractPolygonObstacle entity;
 
-	public PolygonEntity(Point worldCoordinates, EntityPoint... entityPoints) {
+	public JFxPolygonEntity(Point worldCoordinates, EntityPoint... entityPoints) {
 		this(new AbstractPolygonObstacle(worldCoordinates, entityPoints));
 	}
 
-	public PolygonEntity(AbstractPolygonObstacle entity) {
+	public JFxPolygonEntity(AbstractPolygonObstacle entity) {
 		super();
 		setFXProperties();
 		this.entity = entity;

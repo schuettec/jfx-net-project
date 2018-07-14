@@ -1,4 +1,4 @@
-package com.github.schuettec.integration;
+package com.github.schuettec.jfx;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -50,39 +50,42 @@ public class Testapp extends Application {
 		StackPane stack = new StackPane(sceneContent, debugContent);
 		DEBUG = debugContent;
 
-		CircleEntity user = new CircleEntity(new AbstractCircleObstacle(new Point(800, 800), 1));
+		JFxCircleEntity user = new JFxCircleEntity(new AbstractCircleObstacle(new Point(800, 800), 1));
 		user.setScale(65);
 
-		CircleEntity c1 = new CircleEntity(new AbstractCircleObstacle(new Point(800, 700), 1));
+		JFxCircleEntity c1 = new JFxCircleEntity(new AbstractCircleObstacle(new Point(800, 700), 1));
 		c1.setScale(65);
 
-		PolygonEntity e1 = new PolygonEntity(new Point(300, 300), new EntityPoint(45d, 1d), new EntityPoint(135d, 1d),
-				new EntityPoint(225d, 1d), new EntityPoint(315d, 1d));
+		JFxPolygonEntity e1 = new JFxPolygonEntity(new Point(300, 300), new EntityPoint(45d, 1d),
+				new EntityPoint(135d, 1d), new EntityPoint(225d, 1d), new EntityPoint(315d, 1d));
 		e1.setScale(65);
 
-		PolygonEntity e21 = new PolygonEntity(new Point(300, 300), new EntityPoint(45d, 1d), new EntityPoint(135d, 1d),
-				new EntityPoint(225d, 1d), new EntityPoint(315d, 1d));
+		JFxPolygonEntity e21 = new JFxPolygonEntity(new Point(300, 300), new EntityPoint(45d, 1d),
+				new EntityPoint(135d, 1d), new EntityPoint(225d, 1d), new EntityPoint(315d, 1d));
 		e21.setScale(65);
 
-		PolygonEntity e2 = new PolygonEntity(new Point(200, 200), new EntityPoint(45d, 1d), new EntityPoint(135d, 1d),
-				new EntityPoint(225d, 1d), new EntityPoint(315d, 1d));
+		JFxPolygonEntity e2 = new JFxPolygonEntity(new Point(200, 200), new EntityPoint(45d, 1d),
+				new EntityPoint(135d, 1d), new EntityPoint(225d, 1d), new EntityPoint(315d, 1d));
 		e2.setScale(65);
-		PolygonEntity e3 = new PolygonEntity(new Point(400, 400), new EntityPoint(45d, 1d), new EntityPoint(135d, 1d),
-				new EntityPoint(225d, 1d), new EntityPoint(315d, 1d));
+		JFxPolygonEntity e3 = new JFxPolygonEntity(new Point(400, 400), new EntityPoint(45d, 1d),
+				new EntityPoint(135d, 1d), new EntityPoint(225d, 1d), new EntityPoint(315d, 1d));
 		e3.setScale(65);
-		PolygonEntity e4 = new PolygonEntity(new Point(250, 250), new EntityPoint(45d, 1d), new EntityPoint(135d, 1d),
-				new EntityPoint(200d, 1d), new EntityPoint(235d, 1d), new EntityPoint(265d, 1d),
-				new EntityPoint(300d, 1d), new EntityPoint(330d, 1d), new EntityPoint(360d, 1d));
+		JFxPolygonEntity e4 = new JFxPolygonEntity(new Point(250, 250), new EntityPoint(45d, 1d),
+				new EntityPoint(135d, 1d), new EntityPoint(200d, 1d), new EntityPoint(235d, 1d),
+				new EntityPoint(265d, 1d), new EntityPoint(300d, 1d), new EntityPoint(330d, 1d),
+				new EntityPoint(360d, 1d));
 		e4.setScale(65);
 
-		PolygonEntity e5 = new PolygonEntity(new Point(650, 650), new EntityPoint(45d, 1d), new EntityPoint(135d, 1d),
-				new EntityPoint(200d, 1d), new EntityPoint(235d, 1d), new EntityPoint(265d, 1d),
-				new EntityPoint(300d, 1d), new EntityPoint(330d, 1d), new EntityPoint(360d, 1d));
+		JFxPolygonEntity e5 = new JFxPolygonEntity(new Point(650, 650), new EntityPoint(45d, 1d),
+				new EntityPoint(135d, 1d), new EntityPoint(200d, 1d), new EntityPoint(235d, 1d),
+				new EntityPoint(265d, 1d), new EntityPoint(300d, 1d), new EntityPoint(330d, 1d),
+				new EntityPoint(360d, 1d));
 		e5.setScale(65);
 
-		PolygonEntity e6 = new PolygonEntity(new Point(350, 650), new EntityPoint(45d, 1d), new EntityPoint(135d, 1d),
-				new EntityPoint(200d, 1d), new EntityPoint(235d, 1d), new EntityPoint(265d, 1d),
-				new EntityPoint(300d, 1d), new EntityPoint(330d, 1d), new EntityPoint(360d, 1d));
+		JFxPolygonEntity e6 = new JFxPolygonEntity(new Point(350, 650), new EntityPoint(45d, 1d),
+				new EntityPoint(135d, 1d), new EntityPoint(200d, 1d), new EntityPoint(235d, 1d),
+				new EntityPoint(265d, 1d), new EntityPoint(300d, 1d), new EntityPoint(330d, 1d),
+				new EntityPoint(360d, 1d));
 		e6.setScale(65);
 
 		Map map = new Map();
@@ -135,7 +138,8 @@ public class Testapp extends Application {
 
 					long before = System.nanoTime();
 
-					List<Point> findPath = Algorithm.findPath(user, e1.getPosition(), map, user.getRadius() / 2d);
+					List<Point> findPath = Algorithm.findPath(user.getEntity(), e1.getPosition(), map,
+							user.getRadius() / 2d);
 					System.out.println(findPath.size());
 
 					for (Point p : findPath) {

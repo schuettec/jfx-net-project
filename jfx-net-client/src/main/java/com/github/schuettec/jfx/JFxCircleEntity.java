@@ -1,4 +1,4 @@
-package com.github.schuettec.integration;
+package com.github.schuettec.jfx;
 
 import com.github.schuettec.math.Point;
 import com.github.schuettec.world.AbstractCircleObstacle;
@@ -7,19 +7,23 @@ import com.github.schuettec.world.AbstractEntity;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class CircleEntity extends Circle implements JFxEntity {
+public class JFxCircleEntity extends Circle implements JFxEntity {
 
 	protected AbstractCircleObstacle entity;
 
-	public CircleEntity(Point worldCoordinates, double radius) {
+	public JFxCircleEntity(Point worldCoordinates, double radius) {
 		this(new AbstractCircleObstacle(worldCoordinates, radius));
 	}
 
-	public CircleEntity(AbstractCircleObstacle entity) {
+	public JFxCircleEntity(AbstractCircleObstacle entity) {
 		super();
 		setFXProperties();
 		this.entity = entity;
 
+	}
+
+	public AbstractCircleObstacle getEntity() {
+		return entity;
 	}
 
 	private void setFXProperties() {
@@ -85,6 +89,7 @@ public class CircleEntity extends Circle implements JFxEntity {
 		return entity.scale(scaleFactor);
 	}
 
+	@Override
 	public com.github.schuettec.math.Circle getCollisionShape() {
 		return entity.getCollisionShape();
 	}

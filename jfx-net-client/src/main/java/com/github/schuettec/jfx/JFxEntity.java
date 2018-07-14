@@ -1,4 +1,4 @@
-package com.github.schuettec.integration;
+package com.github.schuettec.jfx;
 
 import com.github.schuettec.world.skills.Entity;
 import com.github.schuettec.world.skills.Obstacle;

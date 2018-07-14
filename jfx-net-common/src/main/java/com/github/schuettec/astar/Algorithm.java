@@ -8,19 +8,16 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import com.github.schuettec.integration.CircleEntity;
-import com.github.schuettec.integration.Testapp;
 import com.github.schuettec.math.Circle;
 import com.github.schuettec.math.Math2D;
 import com.github.schuettec.math.Point;
+import com.github.schuettec.world.AbstractCircleObstacle;
 import com.github.schuettec.world.Map;
 import com.github.schuettec.world.skills.Entity;
 
-import javafx.scene.paint.Color;
-
 public class Algorithm {
 
-	public static List<Point> findPath(CircleEntity entity, Point target, Map map, double stepRadius) {
+	public static List<Point> findPath(AbstractCircleObstacle entity, Point target, Map map, double stepRadius) {
 
 		PriorityQueue<Point> openList = new PriorityQueue<Point>(new Comparator<Point>() {
 			@Override
@@ -49,13 +46,13 @@ public class Algorithm {
 
 		do {
 			System.out.println("Läuft");
-			for (Point p : openList) {
-				javafx.scene.shape.Circle c = new javafx.scene.shape.Circle(5);
-				c.setFill(Color.GRAY);
-				c.setTranslateX(p.x);
-				c.setTranslateY(p.y);
-				Testapp.DEBUG.getChildren().add(c);
-			}
+			// for (Point p : openList) {
+			// javafx.scene.shape.Circle c = new javafx.scene.shape.Circle(5);
+			// c.setFill(Color.GRAY);
+			// c.setTranslateX(p.x);
+			// c.setTranslateY(p.y);
+			// Testapp.DEBUG.getChildren().add(c);
+			// }
 
 			// try {
 			// Thread.sleep(200);
@@ -66,19 +63,19 @@ public class Algorithm {
 
 			current = openList.poll();
 
-			final Point finalCurrent = current;
-			javafx.scene.shape.Circle t = new javafx.scene.shape.Circle(targetRadius);
-			t.setFill(null);
-			t.setStroke(Color.MAGENTA);
-			t.setTranslateX(target.x);
-			t.setTranslateY(target.y);
-			Testapp.DEBUG.getChildren().add(t);
+			// final Point finalCurrent = current;
+			// javafx.scene.shape.Circle t = new javafx.scene.shape.Circle(targetRadius);
+			// t.setFill(null);
+			// t.setStroke(Color.MAGENTA);
+			// t.setTranslateX(target.x);
+			// t.setTranslateY(target.y);
+			// Testapp.DEBUG.getChildren().add(t);
 
-			javafx.scene.shape.Circle c = new javafx.scene.shape.Circle(5);
-			c.setFill(Color.DARKCYAN);
-			c.setTranslateX(finalCurrent.x);
-			c.setTranslateY(finalCurrent.y);
-			Testapp.DEBUG.getChildren().add(c);
+			// javafx.scene.shape.Circle c = new javafx.scene.shape.Circle(5);
+			// c.setFill(Color.DARKCYAN);
+			// c.setTranslateX(finalCurrent.x);
+			// c.setTranslateY(finalCurrent.y);
+			// Testapp.DEBUG.getChildren().add(c);
 
 			if (Math2D.isInCircle(current, target, targetRadius)) {
 				break;
@@ -100,12 +97,12 @@ public class Algorithm {
 		return path;
 	}
 
-	private static double heuristic(Point current, Point successor, CircleEntity start, Point end, Map map) {
+	private static double heuristic(Point current, Point successor, AbstractCircleObstacle start, Point end, Map map) {
 		return Math2D.getEntfernung(successor, end);
 	}
 
-	private static void expandNode(DynamicArray<Boolean> visitedMap, Point current, CircleEntity start, Point end,
-			Map map, PriorityQueue<Point> openList, Set<Point> closedList, double radius) {
+	private static void expandNode(DynamicArray<Boolean> visitedMap, Point current, AbstractCircleObstacle start,
+			Point end, Map map, PriorityQueue<Point> openList, Set<Point> closedList, double radius) {
 
 		visitedMap.setCursor(getData(current).visitedMapCoords);
 
