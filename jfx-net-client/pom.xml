@@ -14,5 +14,9 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>jfx-net-common</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.esotericsoftware</groupId>
+			<artifactId>kryonet</artifactId>
+		</dependency>
 	</dependencies>
 </project>
