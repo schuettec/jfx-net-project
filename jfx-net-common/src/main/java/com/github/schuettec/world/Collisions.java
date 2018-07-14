@@ -22,6 +22,19 @@ import com.github.schuettec.world.skills.Obstacle;
  */
 public class Collisions {
 
+	/**
+	 * Calculates the collision of all entities in the specified set.
+	 * 
+	 * @param collisionMap
+	 *            A collision map to store the detected collisions.
+	 * @param map
+	 *            The set of entities to detect collisions for.
+	 * @param all
+	 *            Specified if all collision points should be calculated. If
+	 *            <code>false</code> only the first collision point will be
+	 *            calculated. If <code>true</code> all the other points will be
+	 *            calculated.
+	 */
 	public static void detectCollision(CollisionMap collisionMap, Set<Entity> map, boolean all) {
 		collisionMap.clearCollisions();
 
@@ -52,6 +65,21 @@ public class Collisions {
 		}
 	}
 
+	/**
+	 * Calculates the first collision of the specified shape with all entities in
+	 * the specified set.
+	 * 
+	 * @param shape
+	 *            The shape used to check collisions.
+	 * @param map
+	 *            The set of entities to detect collisions with the shape.
+	 * @param all
+	 *            Specified if all collision points should be calculated. If
+	 *            <code>false</code> only the first collision point will be
+	 *            calculated. If <code>true</code> all the other points will be
+	 *            calculated.
+	 * @return Returns the collision points on the shape as a list.
+	 */
 	public static List<Point> detectFirstCollision(Shape shape, Set<Entity> map, boolean all) {
 
 		for (Entity c1 : new HashSet<>(map)) {
@@ -71,6 +99,22 @@ public class Collisions {
 		return null;
 	}
 
+	/**
+	 * Detects collisions for two {@link Obstacle}s.
+	 * 
+	 * @param e1
+	 *            The obstacle.
+	 * @param e2
+	 *            the other obstacle. The set of entities to detect collisions with
+	 *            the shape.
+	 * @param all
+	 *            Specified if all collision points should be calculated. If
+	 *            <code>false</code> only the first collision point will be
+	 *            calculated. If <code>true</code> all the other points will be
+	 *            calculated.
+	 * @return Returns a {@link Collision} object that manages the list of collision
+	 *         points.
+	 */
 	public static Collision detectCollision(Obstacle e1, Obstacle e2, boolean all) {
 		Shape s1 = e1.getCollisionShape();
 		Shape s2 = e2.getCollisionShape();
@@ -164,6 +208,22 @@ public class Collisions {
 		return collisions;
 	}
 
+	/**
+	 * Calculates the collision of two polygons.
+	 * 
+	 * @param p1
+	 *            A Polygon
+	 * @param p2
+	 *            the other polygon
+	 * @param all
+	 *            Specified if all collision points should be calculated. If
+	 *            <code>false</code> only the first collision point will be
+	 *            calculated. If <code>true</code> all the other points will be
+	 *            calculated.
+	 * 
+	 * @return Returns the list of collision points. How much collision points will
+	 *         be calculated is specified with the <code>all</code> parameter.
+	 */
 	private static List<Point> _detectCollision(Polygon p1, Polygon p2, boolean all) {
 		List<Point> collisions = new LinkedList<>();
 		List<Line> h1 = p1.getLines();

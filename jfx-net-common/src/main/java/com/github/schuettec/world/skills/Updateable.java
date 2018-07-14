@@ -7,11 +7,11 @@ package com.github.schuettec.world.skills;
  * @author Chris
  *
  */
-public interface Updateable {
+public interface Updateable extends Entity {
 
 	/**
-	 * Called by the rendering framework to signal that the object should update
-	 * for the new frame.
+	 * Called by the rendering framework to signal that the object should update for
+	 * the new frame.
 	 */
 	public void update();
 }

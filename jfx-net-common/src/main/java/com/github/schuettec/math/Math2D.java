@@ -4,11 +4,34 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.schuettec.world.EntityPoint;
 
 public class Math2D {
+
+	/**
+	 * Returns the entity points of a rectangle specified by its upper left point
+	 * and with and height.
+	 * 
+	 * @param upperLeft
+	 *            The upper left point of the rectangle
+	 * @param width
+	 *            The width
+	 * @param height
+	 *            The height
+	 * @return The list of the entity points in the following order: Upper left,
+	 *         upper right, bottom right, bottom left.
+	 */
+	public static List<EntityPoint> getRectangle(Point upperLeft, double width, double height) {
+		List<EntityPoint> points = new ArrayList<>();
+		points.add(new EntityPoint(upperLeft));
+		points.add(new EntityPoint(new Point(upperLeft.x + width, upperLeft.y)));
+		points.add(new EntityPoint(new Point(upperLeft.x + width, upperLeft.y + height)));
+		points.add(new EntityPoint(new Point(upperLeft.x, upperLeft.y + height)));
+		return points;
+	}
 
 	/**
 	 * Calculates the middlepoint in a picture.
@@ -59,8 +82,7 @@ public class Math2D {
 	}
 
 	/**
-	 * Calculates real world coordinates into relative coordinates in a
-	 * viewport.
+	 * Calculates real world coordinates into relative coordinates in a viewport.
 	 * 
 	 * @param realWorld
 	 *            Real world coordinates.
@@ -285,16 +307,15 @@ public class Math2D {
 	}
 
 	/**
-	 * Sorts the specified list of points so that the points connected with
-	 * lines in the order the list specified result in a polygon with non
-	 * crossing lines.
+	 * Sorts the specified list of points so that the points connected with lines in
+	 * the order the list specified result in a polygon with non crossing lines.
 	 * 
 	 * @param points
 	 */
 	public static void sortEntityPoints(List<EntityPoint> points) {
 		if (points.size() == 0)
 			return;
-	
+
 		for (int i = 1; i < points.size(); i++) {
 			EntityPoint current = points.get(i - 1);
 			List<EntityPoint> subListView = points.subList(i, points.size());

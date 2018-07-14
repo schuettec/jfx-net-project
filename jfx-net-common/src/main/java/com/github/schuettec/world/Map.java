@@ -7,7 +7,6 @@ import java.util.Set;
 import com.github.schuettec.math.Point;
 import com.github.schuettec.math.Shape;
 import com.github.schuettec.world.skills.Entity;
-import com.github.schuettec.world.skills.Updateable;
 
 /**
  * This is the map data structure. This class makes all {@link Entity} objects
@@ -24,7 +23,7 @@ import com.github.schuettec.world.skills.Updateable;
  * @author Chris
  *
  */
-public class Map implements Updateable {
+public class Map {
 
 	// this would be a useful regression test
 	// public static void main(String[] args) {
@@ -63,14 +62,13 @@ public class Map implements Updateable {
 		this.map.remove(entity);
 	}
 
-	@Override
 	public void update() {
 		Collisions.detectCollision(this.detectedCollision, map, true);
 	}
 
 	/**
-	 * Checks if there was a collision reported by the collision detection where
-	 * the specified entity is involved.
+	 * Checks if there was a collision reported by the collision detection where the
+	 * specified entity is involved.
 	 * 
 	 * @param entity
 	 *            The entity as one of the collision participant.
@@ -108,13 +106,13 @@ public class Map implements Updateable {
 	}
 
 	/**
-	 * Returns the calculated collision for the specified {@link Entity} if
-	 * there is one.
+	 * Returns the calculated collision for the specified {@link Entity} if there is
+	 * one.
 	 * 
 	 * @param entity
 	 *            The entity to check for collisions.
-	 * @return Returns the {@link Collision} object for the specified entity if
-	 *         it collides with another entity, otherwise <code>null</code> is
+	 * @return Returns the {@link Collision} object for the specified entity if it
+	 *         collides with another entity, otherwise <code>null</code> is
 	 *         returned.
 	 */
 	public Collision getCollision(Entity entity) {
