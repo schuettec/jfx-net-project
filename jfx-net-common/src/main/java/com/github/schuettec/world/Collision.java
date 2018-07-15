@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.github.schuettec.math.Point;
 import com.github.schuettec.world.skills.Entity;
-import com.github.schuettec.world.skills.Obstacle;
 
 /**
  * Instances of this class represent a collision of two {@link Obstacle}s. This
@@ -41,9 +40,9 @@ public class Collision {
 	}
 
 	/**
-	 * @return Returns the first collision as {@link Point} that was reported
-	 *         for the colliding entities. If this object does not have any
-	 *         collision points this call returns <code>null</code>.
+	 * @return Returns the first collision as {@link Point} that was reported for
+	 *         the colliding entities. If this object does not have any collision
+	 *         points this call returns <code>null</code>.
 	 */
 	public Point getFirstCollision() {
 		if (points.isEmpty()) {

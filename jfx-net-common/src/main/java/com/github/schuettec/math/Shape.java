@@ -1,22 +1,23 @@
 package com.github.schuettec.math;
 
+import java.io.Serializable;
+
 /**
  * This interface describes methods a geometry must provide.
  * 
  * @author Chris
  *
  */
-public interface Shape {
+public interface Shape extends Serializable {
 
 	/**
-	 * Rotates this {@link Shape} and returns itself to support a fluent API
-	 * style of method calls. The default rotation point of this {@link Shape}
-	 * is used
+	 * Rotates this {@link Shape} and returns itself to support a fluent API style
+	 * of method calls. The default rotation point of this {@link Shape} is used
 	 * 
 	 * @param degrees
 	 *            The amount of degrees to rotate.
-	 * @return Returns this {@link Shape} to support a fluent API style of
-	 *         method calls
+	 * @return Returns this {@link Shape} to support a fluent API style of method
+	 *         calls
 	 */
 	public Shape rotate(double degrees);
 
@@ -25,8 +26,8 @@ public interface Shape {
 	 * 
 	 * @param translation
 	 *            The point to add as translation.
-	 * @return Returns this {@link Shape} to support a fluent API style of
-	 *         method calls
+	 * @return Returns this {@link Shape} to support a fluent API style of method
+	 *         calls
 	 */
 	public Shape translate(Point translation);
 
@@ -35,8 +36,8 @@ public interface Shape {
 	 * 
 	 * @param scaleFactor
 	 *            The scale factor.
-	 * @return Returns this {@link Shape} to support a fluent API style of
-	 *         method calls
+	 * @return Returns this {@link Shape} to support a fluent API style of method
+	 *         calls
 	 */
 	public Shape scale(double scaleFactor);
 }

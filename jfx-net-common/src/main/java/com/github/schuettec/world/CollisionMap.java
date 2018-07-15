@@ -1,5 +1,6 @@
 package com.github.schuettec.world;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -14,7 +15,12 @@ import com.github.schuettec.world.skills.Entity;
  * @author Chris
  *
  */
-class CollisionMap {
+public class CollisionMap implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Holds all collisions unidirectional.

@@ -17,10 +17,14 @@ import com.github.schuettec.world.EntityPoint;
 public class Polygon implements Shape, Cloneable {
 
 	/**
-	 * Holds the list of {@link Line}s making up the collision hull polygon.
-	 * Note: After every modification of the list call
-	 * {@link Math2D#sortEntityPoints(List)} to make sure the points are
-	 * ordered as polygon with non-crossing lines.
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * Holds the list of {@link Line}s making up the collision hull polygon. Note:
+	 * After every modification of the list call
+	 * {@link Math2D#sortEntityPoints(List)} to make sure the points are ordered as
+	 * polygon with non-crossing lines.
 	 */
 	protected List<EntityPoint> entityPoints;
 

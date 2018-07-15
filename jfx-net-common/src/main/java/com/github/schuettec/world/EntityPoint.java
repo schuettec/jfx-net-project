@@ -3,7 +3,6 @@ package com.github.schuettec.world;
 import com.github.schuettec.math.Math2D;
 import com.github.schuettec.math.Point;
 import com.github.schuettec.math.Shape;
-import com.github.schuettec.world.skills.Obstacle;
 
 /**
  * An {@link EntityPoint} represents a local collision point of an
@@ -14,6 +13,11 @@ import com.github.schuettec.world.skills.Obstacle;
  */
 public class EntityPoint implements Shape {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final Point ORIGIN = new Point(0, 0);
 
 	private double radius = 0;
@@ -22,8 +26,8 @@ public class EntityPoint implements Shape {
 
 	/**
 	 * Holds the position of this entity point as {@link Point}. This field is
-	 * final. This way the instance will not change and we can expose the point
-	 * to the outside. Avoids permanent synchronization of variables.
+	 * final. This way the instance will not change and we can expose the point to
+	 * the outside. Avoids permanent synchronization of variables.
 	 */
 	private final Point coordinates;
 

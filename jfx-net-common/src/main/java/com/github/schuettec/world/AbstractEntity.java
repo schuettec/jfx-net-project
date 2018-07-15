@@ -21,6 +21,11 @@ import com.github.schuettec.world.skills.Entity;
  */
 public abstract class AbstractEntity implements Entity, Shape {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Holds the position of this entity in world coordinates.
 	 */
 	protected final Point worldCoordinates;

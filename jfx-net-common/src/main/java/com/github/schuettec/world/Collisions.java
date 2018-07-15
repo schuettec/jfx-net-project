@@ -20,7 +20,7 @@ import com.github.schuettec.world.skills.Obstacle;
  * @author schuettec
  *
  */
-public class Collisions {
+public abstract class Collisions {
 
 	/**
 	 * Calculates the collision of all entities in the specified set.

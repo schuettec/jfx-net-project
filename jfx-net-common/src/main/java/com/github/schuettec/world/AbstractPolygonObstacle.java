@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.github.schuettec.math.Point;
 import com.github.schuettec.math.Polygon;
-import com.github.schuettec.world.skills.Entity;
 import com.github.schuettec.world.skills.Obstacle;
 
 /**
@@ -26,6 +25,11 @@ import com.github.schuettec.world.skills.Obstacle;
  * @author schuettec
  */
 public class AbstractPolygonObstacle extends AbstractEntity implements Obstacle {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected Polygon polygon;
 

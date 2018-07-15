@@ -13,6 +13,11 @@ import com.github.schuettec.world.skills.Obstacle;
 public class AbstractCircleObstacle extends AbstractEntity implements Obstacle {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Holds the collision shape of this entity.
 	 */
 	protected Circle circle;
