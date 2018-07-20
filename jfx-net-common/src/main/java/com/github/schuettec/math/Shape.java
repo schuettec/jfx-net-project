@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Chris
  *
  */
-public interface Shape<T> extends Serializable {
+public interface Shape extends Serializable {
 
 	/**
 	 * Rotates this {@link Shape} and returns itself to support a fluent API style
@@ -40,4 +40,10 @@ public interface Shape<T> extends Serializable {
 	 *         calls
 	 */
 	public Shape scale(double scaleFactor);
+
+	/**
+	 * @return Returns a clone of this {@link Shape}.
+	 */
+	public Shape clone();
+
 }
