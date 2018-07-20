@@ -41,9 +41,4 @@ public interface Shape extends Serializable {
 	 */
 	public Shape scale(double scaleFactor);
 
-	/**
-	 * @return Returns a clone of this {@link Shape}.
-	 */
-	public Shape clone();
-
 }

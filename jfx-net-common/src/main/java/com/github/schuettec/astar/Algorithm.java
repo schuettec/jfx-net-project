@@ -101,8 +101,8 @@ public class Algorithm {
 		return Math2D.getEntfernung(successor, end);
 	}
 
-	private static void expandNode(DynamicArray<Boolean> visitedMap, Point current, Obstacle start, Point end, Map map,
-			PriorityQueue<Point> openList, Set<Point> closedList, double radius) {
+	private static void expandNode(DynamicArray<Boolean> visitedMap, Point current, AbstractCircleObstacle start,
+			Point end, Map map, PriorityQueue<Point> openList, Set<Point> closedList, double radius) {
 
 		visitedMap.setCursor(getData(current).visitedMapCoords);
 
