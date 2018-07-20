@@ -7,7 +7,7 @@ package com.github.schuettec.world.skills;
  * @author Chris
  *
  */
-public interface Updateable extends Entity {
+public interface Updatable extends Entity {
 
 	/**
 	 * Called by the rendering framework to signal that the object should update for

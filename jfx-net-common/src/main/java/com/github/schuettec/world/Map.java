@@ -1,12 +1,20 @@
 package com.github.schuettec.world;
 
+import static com.github.schuettec.world.Collisions.detectCollision;
+import static com.github.schuettec.world.skills.Skill.asSkill;
+
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import com.github.schuettec.math.Point;
 import com.github.schuettec.math.Shape;
 import com.github.schuettec.world.skills.Entity;
+import com.github.schuettec.world.skills.Obstacle;
+import com.github.schuettec.world.skills.Renderable;
+import com.github.schuettec.world.skills.Skill;
+import com.github.schuettec.world.skills.Updatable;
 
 /**
  * This is the map data structure. This class makes all {@link Entity} objects
@@ -40,30 +48,73 @@ public class Map {
 	// System.out.println(map.detectedCollision.size());
 	// }
 
-	protected Set<Entity> map;
+	protected Set<Entity> allEntities;
+
+	protected Set<Obstacle> obstacles;
+	protected Set<Updatable> updateables;
+	protected Set<Renderable> renderables;
+
 	private CollisionMap detectedCollision;
 
 	public Map() {
-		this.map = new HashSet<Entity>();
+		this.allEntities = new HashSet<Entity>();
+		this.obstacles = new HashSet<>();
+		this.updateables = new HashSet<>();
+		this.renderables = new HashSet<>();
 		this.detectedCollision = new CollisionMap();
-	}
-
-	public void addEntity(Entity entity) {
-		this.map.add(entity);
 	}
 
 	public void addEntity(Entity... entities) {
 		for (Entity e : entities) {
-			this.map.add(e);
+			addEntity(e);
+		}
+	}
+
+	public void addEntity(Entity entity) {
+		this.allEntities.add(entity);
+		addEntityBySkill(entity);
+	}
+
+	private void addEntityBySkill(Entity entity) {
+		addOnDemand(Obstacle.class, this.obstacles, entity);
+		addOnDemand(Updatable.class, this.updateables, entity);
+		addOnDemand(Renderable.class, this.renderables, entity);
+	}
+
+	public void removeEntity(Entity... entities) {
+		for (Entity e : entities) {
+			removeEntity(e);
 		}
 	}
 
 	public void removeEntity(Entity entity) {
-		this.map.remove(entity);
+		this.allEntities.remove(entity);
+		removeEntityBySkill(entity);
+	}
+
+	private void removeEntityBySkill(Entity entity) {
+		removeOnDemand(Obstacle.class, this.obstacles, entity);
+		removeOnDemand(Updatable.class, this.updateables, entity);
+		removeOnDemand(Renderable.class, this.renderables, entity);
+	}
+
+	private <S extends Skill> void addOnDemand(Class<S> skillType, Set<S> obstacles, Entity entity) {
+		Optional<S> asSkill = asSkill(skillType, entity);
+		if (asSkill.isPresent()) {
+			obstacles.add(asSkill.get());
+		}
+	}
+
+	private <S extends Skill> void removeOnDemand(Class<S> skillType, Set<S> obstacles, Entity entity) {
+		Optional<S> asSkill = asSkill(skillType, entity);
+		if (asSkill.isPresent()) {
+			obstacles.remove(asSkill.get());
+		}
 	}
 
 	public void update() {
-		Collisions.detectCollision(this.detectedCollision, map, true);
+		updateables.stream().forEach(Updatable::update);
+		detectCollision(this.detectedCollision, obstacles, true);
 	}
 
 	/**
@@ -79,8 +130,10 @@ public class Map {
 		return detectedCollision.hasCollision(entity);
 	}
 
+	// START: Ad-hoc collision detection support.
+
 	public List<Point> getCollision(Shape shape, boolean all) {
-		return Collisions.detectFirstCollision(shape, map, all);
+		return Collisions.detectFirstCollision(shape, allEntities, all);
 	}
 
 	public List<Point> getCollision(Shape shape, Set<Entity> ignore, boolean all) {
@@ -88,22 +141,24 @@ public class Map {
 		return Collisions.detectFirstCollision(shape, toCheck, all);
 	}
 
-	private Set<Entity> filter(Set<Entity> ignore) {
-		Set<Entity> toCheck = new HashSet<>(map);
-		if (ignore != null) {
-			toCheck.removeAll(ignore);
-		}
-		return toCheck;
-	}
-
 	public boolean hasCollision(Shape shape, boolean all) {
-		return Collisions.detectFirstCollision(shape, map, all) != null;
+		return Collisions.detectFirstCollision(shape, allEntities, all) != null;
 	}
 
 	public boolean hasCollision(Shape shape, Set<Entity> ignore, boolean all) {
 		Set<Entity> toCheck = filter(ignore);
 		return Collisions.detectFirstCollision(shape, toCheck, all) != null;
 	}
+
+	private Set<Entity> filter(Set<Entity> ignore) {
+		Set<Entity> toCheck = new HashSet<>(allEntities);
+		if (ignore != null) {
+			toCheck.removeAll(ignore);
+		}
+		return toCheck;
+	}
+
+	// END: Ad-hoc collision detection support.
 
 	/**
 	 * Returns the calculated collision for the specified {@link Entity} if there is

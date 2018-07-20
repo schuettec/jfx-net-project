@@ -35,7 +35,7 @@ public abstract class Collisions {
 	 *            calculated. If <code>true</code> all the other points will be
 	 *            calculated.
 	 */
-	public static void detectCollision(CollisionMap collisionMap, Set<Entity> map, boolean all) {
+	public static void detectCollision(CollisionMap collisionMap, Set<Obstacle> map, boolean all) {
 		collisionMap.clearCollisions();
 
 		for (Entity c1 : new HashSet<>(map)) {

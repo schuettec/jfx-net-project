@@ -1,7 +1,5 @@
 package com.github.schuettec.world.skills;
 
-import java.io.Serializable;
-
 import com.github.schuettec.math.Point;
 
 /**
@@ -11,7 +9,7 @@ import com.github.schuettec.math.Point;
  * @author schuettec
  *
  */
-public interface Entity extends Serializable {
+public interface Entity extends Skill {
 	/**
 	 * Returns the position of this entity.
 	 * <p>
