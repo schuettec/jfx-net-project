@@ -9,8 +9,9 @@ import java.util.List;
 import com.github.schuettec.world.skills.Entity;
 
 /**
- * This is an internal implementation of a special {@link Map} to map
- * {@link Entity} objects to {@link Collision} objects by their identity hash.
+ * This is an internal implementation to map {@link Entity} objects to
+ * {@link Collision} objects by their identity hash. This is used to easily
+ * answer the bidirectional collision request.
  * 
  * @author Chris
  *
@@ -56,7 +57,7 @@ public class CollisionMap implements Serializable {
 		collisions.put(identityHash, collision);
 	}
 
-	public void addCollisionUnidirectional(Collision collision) {
+	private void addCollisionUnidirectional(Collision collision) {
 		this.flatList.add(collision);
 	}
 

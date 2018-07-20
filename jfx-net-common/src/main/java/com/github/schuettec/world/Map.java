@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.github.schuettec.math.Point;
 import com.github.schuettec.math.Shape;
+import com.github.schuettec.world.skills.Camera;
 import com.github.schuettec.world.skills.Entity;
 import com.github.schuettec.world.skills.Obstacle;
 import com.github.schuettec.world.skills.Renderable;
@@ -53,15 +54,19 @@ public class Map {
 	protected Set<Obstacle> obstacles;
 	protected Set<Updatable> updateables;
 	protected Set<Renderable> renderables;
+	protected Set<Camera> cameras;
 
 	private CollisionMap detectedCollision;
+	private CollisionMap cameraCollisions;
 
 	public Map() {
 		this.allEntities = new HashSet<Entity>();
 		this.obstacles = new HashSet<>();
 		this.updateables = new HashSet<>();
 		this.renderables = new HashSet<>();
+		this.cameras = new HashSet<>();
 		this.detectedCollision = new CollisionMap();
+		this.cameraCollisions = new CollisionMap();
 	}
 
 	public void addEntity(Entity... entities) {
@@ -79,6 +84,7 @@ public class Map {
 		addOnDemand(Obstacle.class, this.obstacles, entity);
 		addOnDemand(Updatable.class, this.updateables, entity);
 		addOnDemand(Renderable.class, this.renderables, entity);
+		addOnDemand(Camera.class, this.cameras, entity);
 	}
 
 	public void removeEntity(Entity... entities) {
@@ -96,6 +102,7 @@ public class Map {
 		removeOnDemand(Obstacle.class, this.obstacles, entity);
 		removeOnDemand(Updatable.class, this.updateables, entity);
 		removeOnDemand(Renderable.class, this.renderables, entity);
+		removeOnDemand(Camera.class, this.cameras, entity);
 	}
 
 	private <S extends Skill> void addOnDemand(Class<S> skillType, Set<S> obstacles, Entity entity) {
@@ -114,7 +121,11 @@ public class Map {
 
 	public void update() {
 		updateables.stream().forEach(Updatable::update);
-		detectCollision(this.detectedCollision, obstacles, true);
+		// Detect all collisions in the set of obstacles
+		detectCollision(this.detectedCollision, obstacles, true, true);
+
+		// Detect all collisions in the set of renderables with cameras
+		detectCollision(this.detectedCollision, cameras, renderables, false, false);
 	}
 
 	/**
@@ -133,25 +144,25 @@ public class Map {
 	// START: Ad-hoc collision detection support.
 
 	public List<Point> getCollision(Shape shape, boolean all) {
-		return Collisions.detectFirstCollision(shape, allEntities, all);
+		return Collisions.detectFirstCollision(shape, obstacles, all);
 	}
 
-	public List<Point> getCollision(Shape shape, Set<Entity> ignore, boolean all) {
-		Set<Entity> toCheck = filter(ignore);
+	public List<Point> getCollision(Shape shape, Set<? extends Obstacle> ignore, boolean all) {
+		Set<? extends Obstacle> toCheck = filter(ignore);
 		return Collisions.detectFirstCollision(shape, toCheck, all);
 	}
 
 	public boolean hasCollision(Shape shape, boolean all) {
-		return Collisions.detectFirstCollision(shape, allEntities, all) != null;
+		return Collisions.detectFirstCollision(shape, obstacles, all) != null;
 	}
 
-	public boolean hasCollision(Shape shape, Set<Entity> ignore, boolean all) {
-		Set<Entity> toCheck = filter(ignore);
+	public boolean hasCollision(Shape shape, Set<? extends Obstacle> ignore, boolean all) {
+		Set<? extends Obstacle> toCheck = filter(ignore);
 		return Collisions.detectFirstCollision(shape, toCheck, all) != null;
 	}
 
-	private Set<Entity> filter(Set<Entity> ignore) {
-		Set<Entity> toCheck = new HashSet<>(allEntities);
+	private Set<? extends Obstacle> filter(Set<? extends Obstacle> ignore) {
+		Set<? extends Obstacle> toCheck = new HashSet<>(obstacles);
 		if (ignore != null) {
 			toCheck.removeAll(ignore);
 		}

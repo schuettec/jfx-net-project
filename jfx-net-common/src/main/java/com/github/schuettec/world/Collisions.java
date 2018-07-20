@@ -23,27 +23,32 @@ import com.github.schuettec.world.skills.Obstacle;
 public abstract class Collisions {
 
 	/**
-	 * Calculates the collision of all entities in the specified set.
+	 * Calculates the collision pairs of two sets. If the sets are disjunct this
+	 * method can work more efficiently.
 	 * 
 	 * @param collisionMap
 	 *            A collision map to store the detected collisions.
 	 * @param map
 	 *            The set of entities to detect collisions for.
-	 * @param all
+	 * @param allEntityPoints
 	 *            Specified if all collision points should be calculated. If
 	 *            <code>false</code> only the first collision point will be
 	 *            calculated. If <code>true</code> all the other points will be
 	 *            calculated.
+	 * @param bidirectionalCollisions
+	 *            If <code>true</code> and if a collision c1~c2 was detected, the
+	 *            {@link Collision} object for c2~c1 will also be calculated.
 	 */
-	public static void detectCollision(CollisionMap collisionMap, Set<Obstacle> map, boolean all) {
+	public static void detectCollision(CollisionMap collisionMap, Set<? extends Obstacle> firstSet,
+			Set<? extends Obstacle> secondSet, boolean allEntityPoints, boolean bidirectionalCollisions) {
 		collisionMap.clearCollisions();
 
-		for (Entity c1 : new HashSet<>(map)) {
+		for (Entity c1 : firstSet) {
 			if (!(c1 instanceof Obstacle)) {
 				continue;
 			}
 
-			for (Entity c2 : new HashSet<>(map)) {
+			for (Entity c2 : secondSet) {
 				if (!(c2 instanceof Obstacle)) {
 					continue;
 				}
@@ -53,16 +58,40 @@ public abstract class Collisions {
 				Obstacle o1 = (Obstacle) c1;
 				Obstacle o2 = (Obstacle) c2;
 				{
-					Collision collision = detectCollision(o1, o2, all);
+					Collision collision = detectCollision(o1, o2, allEntityPoints);
 					// Collision may be null if there is none
-					if (collision != null) {
-						Collision reverse = detectCollision(o2, o1, all);
+					if (collision != null && bidirectionalCollisions) {
+						Collision reverse = detectCollision(o2, o1, allEntityPoints);
 						collisionMap.addCollisionsBidirectional(collision, reverse);
 					}
 				}
 
 			}
 		}
+	}
+
+	/**
+	 * Calculates the collision of all entities in the specified set.
+	 * 
+	 * @param collisionMap
+	 *            A collision map to store the detected collisions.
+	 * @param map
+	 *            The set of entities to detect collisions for.
+	 * @param allEntityPoints
+	 *            Specified if all collision points should be calculated. If
+	 *            <code>false</code> only the first collision point will be
+	 *            calculated. If <code>true</code> all the other points will be
+	 *            calculated.
+	 * 
+	 * @param bidirectionalCollisions
+	 *            If <code>true</code> and if a collision c1~c2 was detected, the
+	 *            {@link Collision} object for c2~c1 will also be calculated.
+	 */
+	public static void detectCollision(CollisionMap collisionMap, Set<? extends Obstacle> map, boolean allEntityPoints,
+			boolean bidirectionalCollisions) {
+		// TODO: We can optimize this call: If c1~c2 was checked, then c2~c1 can
+		// be skipped. We can achieve this if we separate the map in two disjunct sets.
+		detectCollision(collisionMap, new HashSet<>(map), new HashSet<>(map), allEntityPoints, bidirectionalCollisions);
 	}
 
 	/**
@@ -80,7 +109,7 @@ public abstract class Collisions {
 	 *            calculated.
 	 * @return Returns the collision points on the shape as a list.
 	 */
-	public static List<Point> detectFirstCollision(Shape shape, Set<Entity> map, boolean all) {
+	public static List<Point> detectFirstCollision(Shape shape, Set<? extends Obstacle> map, boolean all) {
 
 		for (Entity c1 : new HashSet<>(map)) {
 			if (!(c1 instanceof Obstacle)) {
