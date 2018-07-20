@@ -69,6 +69,43 @@ public class Map {
 		this.cameraCollisions = new CollisionMap();
 	}
 
+	public class AdHocDetection {
+		public List<Point> getCollision(Shape shape, boolean all) {
+			return Collisions.detectFirstCollision(shape, obstacles, all);
+		}
+
+		public List<Point> getCollision(Shape shape, Set<? extends Obstacle> ignore, boolean all) {
+			Set<? extends Obstacle> toCheck = filter(ignore);
+			return Collisions.detectFirstCollision(shape, toCheck, all);
+		}
+
+		public boolean hasCollision(Shape shape, boolean all) {
+			return Collisions.detectFirstCollision(shape, obstacles, all) != null;
+		}
+
+		public boolean hasCollision(Shape shape, Set<? extends Obstacle> ignore, boolean all) {
+			Set<? extends Obstacle> toCheck = filter(ignore);
+			return Collisions.detectFirstCollision(shape, toCheck, all) != null;
+		}
+
+		private Set<? extends Obstacle> filter(Set<? extends Obstacle> ignore) {
+			Set<? extends Obstacle> toCheck = new HashSet<>(obstacles);
+			if (ignore != null) {
+				toCheck.removeAll(ignore);
+			}
+			return toCheck;
+		}
+	}
+
+	/**
+	 * @return Returns an object that supports ad-hoc collision detection functions.
+	 *         This object is separated from the map because it supports time
+	 *         consuming features that are not recommended to be uses heavily.
+	 */
+	public AdHocDetection adHocDetection() {
+		return new AdHocDetection();
+	}
+
 	public void addEntity(Entity... entities) {
 		for (Entity e : entities) {
 			addEntity(e);
@@ -125,7 +162,7 @@ public class Map {
 		detectCollision(this.detectedCollision, obstacles, true, true);
 
 		// Detect all collisions in the set of renderables with cameras
-		detectCollision(this.detectedCollision, cameras, renderables, false, false);
+		detectCollision(this.cameraCollisions, cameras, renderables, false, false);
 	}
 
 	/**
@@ -140,36 +177,6 @@ public class Map {
 	public boolean hasCollision(Entity entity) {
 		return detectedCollision.hasCollision(entity);
 	}
-
-	// START: Ad-hoc collision detection support.
-
-	public List<Point> getCollision(Shape shape, boolean all) {
-		return Collisions.detectFirstCollision(shape, obstacles, all);
-	}
-
-	public List<Point> getCollision(Shape shape, Set<? extends Obstacle> ignore, boolean all) {
-		Set<? extends Obstacle> toCheck = filter(ignore);
-		return Collisions.detectFirstCollision(shape, toCheck, all);
-	}
-
-	public boolean hasCollision(Shape shape, boolean all) {
-		return Collisions.detectFirstCollision(shape, obstacles, all) != null;
-	}
-
-	public boolean hasCollision(Shape shape, Set<? extends Obstacle> ignore, boolean all) {
-		Set<? extends Obstacle> toCheck = filter(ignore);
-		return Collisions.detectFirstCollision(shape, toCheck, all) != null;
-	}
-
-	private Set<? extends Obstacle> filter(Set<? extends Obstacle> ignore) {
-		Set<? extends Obstacle> toCheck = new HashSet<>(obstacles);
-		if (ignore != null) {
-			toCheck.removeAll(ignore);
-		}
-		return toCheck;
-	}
-
-	// END: Ad-hoc collision detection support.
 
 	/**
 	 * Returns the calculated collision for the specified {@link Entity} if there is

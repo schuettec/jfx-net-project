@@ -26,4 +26,10 @@ public class Rectangle extends Polygon {
 	public double getHeight() {
 		return height;
 	}
+
+	@Override
+	public Rectangle clone() {
+		return new Rectangle(entityPoints.get(0).getCoordinates(), width, height);
+	}
+
 }

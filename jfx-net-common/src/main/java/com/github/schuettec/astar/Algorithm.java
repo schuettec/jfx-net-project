@@ -13,7 +13,7 @@ import com.github.schuettec.math.Math2D;
 import com.github.schuettec.math.Point;
 import com.github.schuettec.world.AbstractCircleObstacle;
 import com.github.schuettec.world.Map;
-import com.github.schuettec.world.skills.Entity;
+import com.github.schuettec.world.skills.Obstacle;
 
 public class Algorithm {
 
@@ -101,8 +101,8 @@ public class Algorithm {
 		return Math2D.getEntfernung(successor, end);
 	}
 
-	private static void expandNode(DynamicArray<Boolean> visitedMap, Point current, AbstractCircleObstacle start,
-			Point end, Map map, PriorityQueue<Point> openList, Set<Point> closedList, double radius) {
+	private static void expandNode(DynamicArray<Boolean> visitedMap, Point current, Obstacle start, Point end, Map map,
+			PriorityQueue<Point> openList, Set<Point> closedList, double radius) {
 
 		visitedMap.setCursor(getData(current).visitedMapCoords);
 
@@ -126,9 +126,9 @@ public class Algorithm {
 			// Create collision shape: A line from current point to the next
 			// step.
 			Circle stepShape = start.getCollisionShape().clone().setPosition(stepPoint);
-			Set<Entity> ignore = new HashSet<>();
+			Set<Obstacle> ignore = new HashSet<>();
 			ignore.add(start);
-			boolean hasCollision = map.hasCollision(stepShape, ignore, false);
+			boolean hasCollision = map.adHocDetection().hasCollision(stepShape, ignore, false);
 			if (!hasCollision) {
 				successors.add(stepPoint);
 				visitedMap.set(visited, true);

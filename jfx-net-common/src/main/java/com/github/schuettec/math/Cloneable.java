@@ -10,8 +10,8 @@ package com.github.schuettec.math;
 public interface Cloneable {
 
 	/**
-	 * @return Returns an exact clone of this object. The clone is assumed to be
-	 *         a deep copy of the object.
+	 * @return Returns an exact clone of this object. The clone is assumed to be a
+	 *         deep copy of the object.
 	 */
 	public Cloneable clone();
 

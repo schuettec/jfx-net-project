@@ -113,8 +113,7 @@ public class Point implements Shape, Cloneable {
 	}
 
 	/**
-	 * This implementation does nothing, because a {@link Point} cannot be
-	 * rotated.
+	 * This implementation does nothing, because a {@link Point} cannot be rotated.
 	 */
 	@Override
 	public Point rotate(double degrees) {
@@ -129,8 +128,7 @@ public class Point implements Shape, Cloneable {
 	}
 
 	/**
-	 * This implementation does nothing, because a {@link Point} cannot be
-	 * scaled.
+	 * This implementation does nothing, because a {@link Point} cannot be scaled.
 	 */
 	@Override
 	public Point scale(double scaleFactor) {

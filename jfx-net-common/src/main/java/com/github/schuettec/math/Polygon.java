@@ -14,7 +14,7 @@ import com.github.schuettec.world.EntityPoint;
  * @author Chris
  *
  */
-public class Polygon implements Shape, Cloneable {
+public class Polygon implements Shape {
 
 	/**
 	 * 
